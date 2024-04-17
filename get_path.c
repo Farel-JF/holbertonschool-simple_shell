@@ -7,20 +7,24 @@
 
 int main(int argc, char *argv[])
 {
+  char *path;
+  char *token;
+
   if (argc < 2)
   {
     printf("Usage: %s filename ...\n", argv[0]);
     return 1;
   }
 
-  char *path = getenv("PATH");
+  path = getenv("PATH");
   if (path == NULL)
   {
     printf("PATH environment variable is not set.\n");
     return 1;
   }
 
-  char *token = strtok(path, ":");
+  token = strtok(path, ":");
+
   while (token != NULL)
   {
     char filepath[MAX_PATH_LENGTH];
