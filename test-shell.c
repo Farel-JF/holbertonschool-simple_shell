@@ -1,19 +1,29 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <errno.h>
 
-#define LONGUEUR_COMMANDE_MAX 100
+#define MAX_COMMAND_LENGTH 100
 
-void executer_commande(char *commande) {
+void execute_command(char *command) {
     pid_t pid = fork();
     if (pid < 0) {
         perror("fork");
     } else if (pid == 0) { // Processus enfant
         // Exécuter la commande
-        if (execlp(commande, commande, NULL) == -1) {
-            perror("execlp");
+        if (execlp(command, command, NULL) == -1) {
+            // Vérifier si le fichier existe ou si c'est une erreur de permission
+            if (errno == ENOENT) {
+                printf("No such file or directory: %s\n", command);
+            } else {
+                perror("execlp");
+            }
             exit(EXIT_FAILURE);
         }
     } else { // Processus parent
@@ -24,21 +34,27 @@ void executer_commande(char *commande) {
 }
 
 int main() {
-    char commande[LONGUEUR_COMMANDE_MAX];
+    char command[MAX_COMMAND_LENGTH];
 
     printf("Bienvenue dans le Shell Simple!\n");
 
     while (1) {
-        printf("$ ");
-        if (fgets(commande, sizeof(commande), stdin) == NULL) {
+        printf("#cisfun$ ");
+        if (fgets(command, sizeof(command), stdin) == NULL) {
             printf("\nFermeture du shell...\n");
             break;
         }
         // Supprimer le caractère de nouvelle ligne s'il est présent
-        commande[strcspn(commande, "\n")] = '\0';
+        command[strcspn(command, "\n")] = '\0';
+
+        // Quitter le shell si "exit" est saisi
+        if (strcmp(command, "exit") == 0) {
+            printf("Fermeture du shell...\n");
+            break;
+        }
 
         // Exécuter la commande
-        executer_commande(commande);
+        execute_command(command);
     }
 
     return 0;
