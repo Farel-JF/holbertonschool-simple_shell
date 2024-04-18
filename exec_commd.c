@@ -13,16 +13,23 @@ void execute_command(char *command)
   else if (pid == 0)
   {
     /* Child process */
-    if (execlp(command, command, NULL) == -1)
+    if (strcmp(command, "exit") == 0)
     {
-      fprintf(stderr, "./shell: No such file or directory\n");
-      exit(EXIT_FAILURE);
+      exit(EXIT_SUCCESS);
+    }
+    else
+    {
+      if (execlp(command, command, NULL) == -1)
+      {
+        fprintf(stderr, "./shell: No such file or directory\n");
+        exit(EXIT_FAILURE);
+      }
     }
   }
   else
   {
     /* Parent process */
-    
+
     waitpid(pid, &status, 0);
   }
 }
