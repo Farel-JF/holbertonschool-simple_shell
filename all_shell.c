@@ -32,6 +32,5 @@ int main()
       choose_command(command);
     }
   }
-
   return (0);
 }

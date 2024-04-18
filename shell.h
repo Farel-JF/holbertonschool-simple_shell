@@ -1,6 +1,7 @@
 #ifndef _SHELL_H
 #define _SHELL_H
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -26,5 +27,6 @@ void manage_string(const char *input);
 int manage_env(void);
 void run_ls_l();
 void choose_command(char *command);
+int get_exceclp(const char *file, const char *arg0, ...);
 
 #endif

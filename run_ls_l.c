@@ -2,6 +2,8 @@
 
 void run_ls_l()
 {
+  const char *arg0 = "ls";
+  const char *arg1 = "-l";
 
   pid_t pid = fork();
 
@@ -13,7 +15,7 @@ void run_ls_l()
   else if (pid == 0)
   {
 
-    execlp("ls", "ls", "-l", NULL);
+    get_exceclp(arg0, arg1, NULL);
 
     perror("execlp");
     exit(EXIT_FAILURE);
@@ -22,13 +24,5 @@ void run_ls_l()
   {
     int status;
     waitpid(pid, &status, 0);
-    if (WIFEXITED(status))
-    {
-      printf("Le processus enfant s'est terminé avec le code de sortie : %d\n", WEXITSTATUS(status));
-    }
-    else
-    {
-      printf("Le processus enfant s'est terminé de manière anormale.\n");
-    }
   }
 }
