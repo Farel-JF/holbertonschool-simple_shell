@@ -17,7 +17,7 @@ void execute_command(char *command)
   }
   else if (pid == 0)
   {
-    // Child process
+    /*Child process*/
     if (execlp(command, command, NULL) == -1)
     {
       fprintf(stderr, "./shell: No such file or directory\n");
@@ -26,7 +26,7 @@ void execute_command(char *command)
   }
   else
   {
-    // Parent process
+    /*Parent process*/
     int status;
     waitpid(pid, &status, 0);
   }
@@ -56,9 +56,12 @@ int main(int argc, char *argv[])
       }
     }
 
-    // Remove newline character
+    /*Remove newline character*/
     command[strcspn(command, "\n")] = '\0';
-
+     if (strcmp(command, "exit") == 0)
+    {
+        break; /*Exit the loop*/
+    }
     token = strtok(command, " ");
 
     while (token != NULL)
