@@ -7,6 +7,9 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <fcntl.h>
+#include <stdbool.h>
+
+extern char **environ;
 
 #define MAX_COMMAND_LENGTH 100
 #define MAX_PATH_LENGTH 1024
@@ -17,8 +20,11 @@ typedef int pid_t;
 
 void execute_command(char *command);
 char *find_command_in_path(const char *command, const char *path);
-void exit_shell();
+void exit_shell(const char *command);
 int manage_command(char *command);
 void manage_string(const char *input);
+int manage_env(void);
+void run_ls_l();
+void choose_command(char *command);
 
 #endif

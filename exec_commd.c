@@ -4,7 +4,9 @@ void execute_command(char *command)
 {
   pid_t pid;
   int status;
+
   pid = fork();
+
   if (pid == -1)
   {
     perror("fork");
@@ -17,6 +19,10 @@ void execute_command(char *command)
     {
       exit(EXIT_SUCCESS);
     }
+    else if (strcmp(command, "ls -l") == 0)
+    {
+      run_ls_l(command);
+    }
     else
     {
       if (execlp(command, command, NULL) == -1)
@@ -28,8 +34,6 @@ void execute_command(char *command)
   }
   else
   {
-    /* Parent process */
-
     waitpid(pid, &status, 0);
   }
 }

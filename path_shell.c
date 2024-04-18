@@ -2,7 +2,7 @@
 
 char *find_command_in_path(const char *command, const char *path)
 {
-  static char command_with_path[MAX_COMMAND_WITH_PATH_LENGTH];
+  char command_with_path[MAX_COMMAND_WITH_PATH_LENGTH];
   char *path_copy = strdup(path);
   char *path_token = strtok(path_copy, ":");
 
@@ -11,8 +11,9 @@ char *find_command_in_path(const char *command, const char *path)
     snprintf(command_with_path, sizeof(command_with_path), "%s/%s", path_token, command);
     if (access(command_with_path, X_OK) != -1)
     {
+      char *found_command_path = strdup(command_with_path);
       free(path_copy);
-      return command_with_path;
+      return found_command_path;
     }
     path_token = strtok(NULL, ":");
   }
