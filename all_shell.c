@@ -24,7 +24,7 @@ int main()
 
     /*Remove newline character*/
     command[strcspn(command, "\n")] = '\0';
-
+    /*execut command and choose function*/
     execute_command(command);
     choose_command(command);
     if (strcmp(command, "execute") == 0)
