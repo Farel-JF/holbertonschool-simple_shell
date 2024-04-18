@@ -28,17 +28,3 @@ void manage_all_argv_argc(char *command_line)
     printf("%d: %s\n", i, args[i]);
   }
 }
-
-int main()
-{
-  char command_line[100];
-
-  printf("Enter a command line: ");
-  fgets(command_line, sizeof(command_line), stdin);
-
-  command_line[strcspn(command_line, "\n")] = '\0';
-
-  manage_all_argv_argc(command_line);
-
-  return 0;
-}

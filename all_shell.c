@@ -26,6 +26,7 @@ int main()
     command[strcspn(command, "\n")] = '\0';
 
     execute_command(command);
+    exit_shell(command);
   }
 
   return 0;
