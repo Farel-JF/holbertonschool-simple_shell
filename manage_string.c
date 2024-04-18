@@ -5,7 +5,6 @@ void manage_string(const char *input)
   printf("Length of input string: %lu\n", strlen(input));
   printf("Input string: %s\n", input);
 }
-#include "shell.h"
 
 void manage_all_argv_argc(char *command_line)
 {
