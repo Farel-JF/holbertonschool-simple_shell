@@ -1,0 +1,24 @@
+#ifndef _SHELL_H
+#define _SHELL_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <string.h>
+#include <fcntl.h>
+
+#define MAX_COMMAND_LENGTH 100
+#define MAX_PATH_LENGTH 1024
+#define MAX_COMMAND_WITH_PATH_LENGTH (MAX_PATH_LENGTH + MAX_COMMAND_LENGTH + 2)
+#define MAX_ARGS 10
+
+typedef int pid_t;
+
+void execute_command(char *command);
+char *find_command_in_path(const char *command, const char *path);
+void exit_shell();
+int manage_command(char *command);
+void manage_string(const char *input);
+
+#endif
