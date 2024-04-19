@@ -19,10 +19,6 @@ void execute_command(char *command)
     {
       exit(EXIT_SUCCESS);
     }
-    else if (strcmp(command, "ls -l") == 0)
-    {
-      run_ls_l(command);
-    }
     else
     {
       if (execlp(command, command, NULL) == -1)

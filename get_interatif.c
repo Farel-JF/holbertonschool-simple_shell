@@ -1,8 +1,8 @@
 #include "shell.h"
 
-int main()
+void get_interatif()
 {
-  char command[MAX_COMMAND_LENGTH];
+	char command[MAX_COMMAND_LENGTH];
 
   while (1)
   {
@@ -26,10 +26,18 @@ int main()
     command[strcspn(command, "\n")] = '\0';
     /*execut command and choose function*/
     execute_command(command);
-    if (strcmp(command, "execute") == 0)
-    {
-      choose_command(command);
-    }
   }
-  return (0);
+}
+
+void get_not_interatif(FILE *file)
+{
+    char input[MAX_INPUT_LENGTH];
+    while (fgets(input, sizeof(input), file) != NULL)
+    {
+        /*Remove trailing newline character*/
+        input[strcspn(input, "\n")] = '\0';
+
+        /*Process the input (you can add your logic here)*/
+        printf("You entered: %s\n", input);
+    }
 }
