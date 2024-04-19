@@ -3,5 +3,6 @@
     "shell.h": "c",
     "stdlib.h": "c",
     "stdarg.h": "c"
-  }
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }

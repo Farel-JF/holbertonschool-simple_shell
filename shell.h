@@ -9,6 +9,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <stdbool.h>
+#include <sys/stat.h>
 
 extern char **environ;
 
@@ -28,5 +29,7 @@ int manage_env(void);
 void run_ls_l();
 void choose_command(char *command);
 int get_exceclp(const char *file, const char *arg0, ...);
+char *_getenv(const char *name, char **env);
+char *get_which(char *command, char **env);
 
 #endif
