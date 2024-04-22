@@ -24,12 +24,13 @@ extern char **environ;
 typedef int pid_t;
 
 void execute_command(char *command);
-void get_exit(char *command);
-char *_getenv(const char *name, char **env);
-char *get_which(char *command, char **env);
-int get_execlp(const char *file, const char *arg, ...);
-int handle_eof();
+char *find_command_in_path(const char *command, const char *path);
+void exit_shell(const char *command);
+int manage_command(char *command);
+void manage_string(const char *input);
+int manage_env(void);
 void run_ls_l();
-char *get_recup(char *fname, int numcount, char *cmd, const char *status);
+void choose_command(char *command);
+int get_exceclp(const char *file, const char *arg0, ...);
 
 #endif
