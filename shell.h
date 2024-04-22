@@ -10,6 +10,8 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 extern char **environ;
 
@@ -22,10 +24,13 @@ extern char **environ;
 typedef int pid_t;
 
 void execute_command(char *command);
-void exit_shell(const char *command);
+int get_exit(char *n);
 char *_getenv(const char *name, char **env);
 char *get_which(char *command, char **env);
 void get_interatif();
 void get_not_interatif(FILE *file);
+int get_execlp(const char *file, const char *arg, ...);
+int handle_eof();
+void run_ls_l();
 
 #endif

@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int exit_value(char *n)
+int get_exit(char *n)
 {
   unsigned int nb = 0;
 

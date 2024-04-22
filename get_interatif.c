@@ -13,6 +13,7 @@ void get_interatif()
       if (feof(stdin))
       {
         printf("^C\n");
+        handle_eof();
         break;
       }
       else
@@ -24,7 +25,19 @@ void get_interatif()
 
     /*Remove newline character*/
     command[strcspn(command, "\n")] = '\0';
+
+    if (strcmp(command, "ls -l") == 0) {
+            run_ls_l();
+        } else if (strcmp(command, "exit") == 0) {
+            exit(EXIT_SUCCESS);
+        } else {
+            printf("Commande non reconnue : %s\n", command);
+        }
     /*execut command and choose function*/
+    if (strlen(command) == 0)
+    {
+      continue;
+    }
     execute_command(command);
   }
 }
