@@ -27,8 +27,6 @@ void execute_command(char *command);
 void get_exit(char *command);
 char *_getenv(const char *name, char **env);
 char *get_which(char *command, char **env);
-void get_interatif();
-void get_not_interatif(FILE *file);
 int get_execlp(const char *file, const char *arg, ...);
 int handle_eof();
 void run_ls_l();
