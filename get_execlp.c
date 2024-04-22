@@ -8,7 +8,8 @@ int get_execlp(const char *file, const char *arg, ...)
     int i = 0;
 
     pid_t pid = fork();
-    if (pid < 0) {
+    if (pid < 0)
+	{
 
         perror("fork");
         return -1;
@@ -26,17 +27,11 @@ int get_execlp(const char *file, const char *arg, ...)
 
         execvp(file, args_array);
 
-        perror("execvp");
-        exit(EXIT_FAILURE);
-    } else {
-
-        waitpid(pid, &status, 0);
-        if (WIFEXITED(status)) {
-
-            return WEXITSTATUS(status);
-        } else {
-
-            return (-1);
-        }
+		fprintf(stderr, "./shell: No such file or directory\n");
     }
+	else
+	{
+        waitpid(pid, &status, 0);
+    }
+	return (0);
 }

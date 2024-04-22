@@ -9,11 +9,12 @@ int main(int ac, char **av, char **env)
         FILE *file = fopen(av[0], "r");
         if (file == NULL) {
             fprintf(stderr, "Erreur lors de l'ouverture du fichier.\n");
-            return EXIT_FAILURE;
+            return (EXIT_FAILURE);
         }
         get_not_interatif(file);
         fclose(file);
         return (status);
+
     }
 
     while (1)

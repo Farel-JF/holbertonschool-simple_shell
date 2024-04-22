@@ -24,7 +24,7 @@ extern char **environ;
 typedef int pid_t;
 
 void execute_command(char *command);
-int get_exit(char *n);
+void get_exit(char *command);
 char *_getenv(const char *name, char **env);
 char *get_which(char *command, char **env);
 void get_interatif();
@@ -32,5 +32,6 @@ void get_not_interatif(FILE *file);
 int get_execlp(const char *file, const char *arg, ...);
 int handle_eof();
 void run_ls_l();
+char *get_recup(char *fname, int numcount, char *cmd, const char *status);
 
 #endif

@@ -1,42 +1,38 @@
 #include "shell.h"
-
 void execute_command(char *command)
 {
-  pid_t pid;
-  int status;
-
+    pid_t pid;
+    int status;
 
     pid = fork();
 
-    if (pid == 0)
+    if (pid == -1)
     {
-      if (strcmp(command, "ls -l") == 0)
-      {
-       run_ls_l();
-      }
-      if (strcmp(command, "exit") == 0)
-      {
-      status = get_exit(command);
-      status = handle_eof();
-      exit(status);
-      }
-    }
-    else if (pid == -1)
-    {
-      perror("fork");
-      exit(EXIT_FAILURE);
-    }
-    else if (execlp(command, command, NULL) == -1)
-    {
-        fprintf(stderr, "./shell: No such file or directory\n");
+        perror("fork");
         exit(EXIT_FAILURE);
-      }
+    }
+    else if (pid == 0)
+    {
+
+        if (strcmp(command, "ls -l") == 0)
+        {
+            get_execlp("/bin/ls", "ls", "-l", NULL);
+            perror("execlp");
+            exit(EXIT_FAILURE);
+        }
+        else if (strcmp(command, "ls -l /tmp") == 0)
+        {
+            run_ls_l();
+        }
+        else
+        {
+            get_execlp(command, command, NULL);
+
+        }
+    }
     else
     {
-           waitpid(pid, &status, 0);
-            exit(EXIT_SUCCESS);
+        waitpid(pid, &status, 0);
+
     }
-
-
 }
-

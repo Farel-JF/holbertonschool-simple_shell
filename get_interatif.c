@@ -2,49 +2,50 @@
 
 void get_interatif()
 {
-	char command[MAX_COMMAND_LENGTH];
+    char command[MAX_COMMAND_LENGTH];
+    char *fname = "file.txt";
+    int numcount = MAX_ARGS;
+    const char *status = "Status";
 
-  while (1)
-  {
-    printf("cisfun$ ");
-
-    if (fgets(command, sizeof(command), stdin) == NULL)
+    while (1)
     {
-      if (feof(stdin))
-      {
-        printf("^C\n");
-        handle_eof();
-        break;
-      }
-      else
-      {
-        perror("fgets");
-        exit(EXIT_FAILURE);
-      }
-    }
+        printf("cisfun$ ");
 
-    /*Remove newline character*/
-    command[strcspn(command, "\n")] = '\0';
-
-    if (strcmp(command, "ls -l") == 0) {
-            run_ls_l();
-        } else if (strcmp(command, "exit") == 0) {
-            exit(EXIT_SUCCESS);
-        } else {
-            printf("Commande non reconnue : %s\n", command);
+        if (fgets(command, sizeof(command), stdin) == NULL)
+        {
+            if (feof(stdin))
+            {
+                printf("^C\n");
+                handle_eof();
+                break;
+            }
+            else
+            {
+                perror("fgets");
+                exit(EXIT_FAILURE);
+            }
         }
-    /*execut command and choose function*/
-    if (strlen(command) == 0)
-    {
-      continue;
+
+        /* Remove newline character */
+        command[strcspn(command, "\n")] = '\0';
+
+        get_recup(fname, numcount, command, status);
+
+        if (strlen(command) == 0)
+        {
+            continue;
+        }
+         get_exit(command);
+        execute_command(command);
+
+
     }
-    execute_command(command);
-  }
 }
 
 void get_not_interatif(FILE *file)
 {
     char input[MAX_INPUT_LENGTH];
+
     while (fgets(input, sizeof(input), file) != NULL)
     {
         /*Remove trailing newline character*/
