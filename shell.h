@@ -28,8 +28,8 @@ void get_exit(char *command);
 char *_getenv(const char *name, char **env);
 char *get_which(char *command, char **env);
 int get_execlp(const char *file, const char *arg, ...);
-int handle_eof();
-void run_ls_l();
+int handle_eof(void);
+void run_ls_l(void);
 char *get_recup(char *fname, int numcount, char *cmd, const char *status);
 
 #endif

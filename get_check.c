@@ -19,7 +19,7 @@ int check_env(const char *variable)
 	{
 	/*Chercher la variable spécifiée*/
 	if (strncmp(*env, variable, strlen(variable)) == 0)
-        {
+	{
 		/*Si la variable est trouvée, retourner vrai (true)*/
 	return (true);
 	}

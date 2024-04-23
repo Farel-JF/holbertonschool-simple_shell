@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * get_which - Find the full path of a command in the PATH environment variable.
+ * get_which - Find the full path of a command in the PATH envr variable.
  * @command: The command to search for.
  * @env: The environment variables.
  *
@@ -21,8 +21,7 @@ char *get_which(char *command, char **env)
 
 	if (path_token != NULL)
 	{
-		do
-		{
+		do {
 			snprintf(filepath, sizeof(filepath), "%s/%s", path_token, command);
 
 			if (stat(filepath, &st) == 0)
@@ -31,7 +30,8 @@ char *get_which(char *command, char **env)
 				break;
 			}
 			path_token = strtok(NULL, ":");
-		}while (path_token != NULL);
+
+		} while (path_token != NULL);
 	}
 	free(copy_path);
 	return (command_path);
@@ -45,26 +45,25 @@ char *get_which(char *command, char **env)
  * This function retrieves the value of the specified environment variable
  * from the provided environment variables list.
  *
- * Return: A pointer to the value of the environment variable, or NULL if not found.
+ * Return: A pointer to the value of the envr variable, or NULL if not found.
  */
-
 char *_getenv(const char *name, char **env)
 {
-    int i, j;
+	int i, j;
 
-    for (i = 0; env[i]; i++)
-    {
-        for (j = 0; env[i][j]; j++)
-        {
-            if (env[i][j] == name[j])
-                continue;
-            else if (env[i][j] == '=' && name[j] == '\0')
-            {
-                return (&env[i][j + 1]);
-            }
-                else
-                break;
-        }
-    }
-    return (NULL);
+	for (i = 0; env[i]; i++)
+	{
+		for (j = 0; env[i][j]; j++)
+		{
+			if (env[i][j] == name[j])
+				continue;
+			else if (env[i][j] == '=' && name[j] == '\0')
+			{
+				return (&env[i][j + 1]);
+			}
+			else
+				break;
+		}
+	}
+	return (NULL);
 }

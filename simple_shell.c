@@ -31,18 +31,18 @@ int main(int ac, char *av[], char **env)
 		{
 			if (feof(stdin))
 			{
-			break;
+				break;
 			}
-      			else
+			else
 			{
 				fprintf(stderr, "Erreur lors de la lecture de l'entrée.\n");
 				return (EXIT_FAILURE);
+			}
 		}
-	}
 		/* Enlever le caractère de nouvelle ligne en fin de ligne */
 		input[strcspn(input, "\n")] = '\0';
 		get_exit(input);
-        	/* Exécuter la commande entrée par l'utilisateur */
+		/* Exécuter la commande entrée par l'utilisateur */
 		execute_command(input);
 		nb_cmd++;
 	}
@@ -50,4 +50,3 @@ int main(int ac, char *av[], char **env)
 	(void)env;
 	return (status);
 }
-

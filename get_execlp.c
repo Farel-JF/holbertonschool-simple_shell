@@ -19,6 +19,7 @@ int get_execlp(const char *file, const char *arg, ...)
 	char *args_array[64];
 	int status;
 	const char *next_arg;
+	va_list args;
 
 	int i = 0;
 
@@ -31,7 +32,6 @@ int get_execlp(const char *file, const char *arg, ...)
 	}
 	else if (pid == 0)
 	{
-		va_list args;
 		va_start(args, arg);
 		args_array[i++] = (char *)arg;
 
@@ -49,6 +49,5 @@ int get_execlp(const char *file, const char *arg, ...)
 	{
 		waitpid(pid, &status, 0);
 	}
-
-	return 0;
+	return (0);
 }

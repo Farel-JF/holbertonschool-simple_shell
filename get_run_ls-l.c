@@ -8,7 +8,7 @@
  * If an error occurs during forking or execution, it prints an error
  * message and exits with failure.
  */
-void run_ls_l()
+void run_ls_l(void)
 {
 	const char *const avs[] = {"/bin/ls", "-l", NULL};
 	char *const envp[] = {NULL};
