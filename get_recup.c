@@ -2,13 +2,13 @@
 
 char *get_recup(char *fname, int numcount, char *cmd, const char *status)
 {
-    char *result = malloc(numcount * sizeof(char));
+    char *result = malloc(numcount + strlen(status) + strlen(fname)
+    + strlen (cmd) + 3);
     if (result == NULL) {
         perror("Allocation failed");
         return NULL;
     }
-    strncpy(result, status, numcount);
-    result[numcount - 1] = '\0';
+    strcpy(result, status);
     strcat(result, " ");
     strcat(result, fname);
     strcat(result, " ");

@@ -3,37 +3,28 @@
 char *get_which(char *command, char **env)
 {
     struct stat st;
-  char *copy_path;
-  char *path_token;
-  char filepath[MAX_COMMAND_WITH_PATH_LENGTH];
-  char *command_path;
-
-  copy_path = _getenv("PATH", env);
-  command_path = _getenv("PATH", env);
-
-    if (copy_path != NULL)
-    {
-        copy_path = strdup(_getenv("PATH", env));
-    }
-
-    path_token = strtok(copy_path, ":");
+    char *copy_path = strdup(_getenv("PATH", env));
+    char *path_token = strtok(copy_path, ":");
+    char filepath[MAX_COMMAND_WITH_PATH_LENGTH];
+    char *command_path = NULL;
 
     if (path_token != NULL)
     {
         do
         {
-        snprintf(filepath, sizeof(filepath), "%s/%s", path_token, command);
-        if (stat(command_path, &st) == 0)
-        {
-            free(path_token);
-            return (strdup(command_path));
-        }
-        path_token = strtok(NULL, ":");
+            snprintf(filepath, sizeof(filepath), "%s/%s", path_token, command);
+            if (stat(filepath, &st) == 0)
+            {
+                command_path = strdup(filepath);
+                break;
+            }
+            path_token = strtok(NULL, ":");
         } while (path_token != NULL);
     }
     free(copy_path);
-    return(NULL);
+    return command_path;
 }
+
 
 
 char *_getenv(const char *name, char **env)

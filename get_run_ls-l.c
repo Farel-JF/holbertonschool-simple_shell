@@ -1,4 +1,6 @@
+
 #include "shell.h"
+
 void run_ls_l()
 {
     const char *const avs[] = {"/bin/ls", "-l", NULL};
@@ -23,5 +25,4 @@ void run_ls_l()
         waitpid(pid, &status, 0);
     }
 }
-
 

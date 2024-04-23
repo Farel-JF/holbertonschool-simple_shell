@@ -1,20 +1,20 @@
+
 #include "shell.h"
 
 int get_execlp(const char *file, const char *arg, ...)
 {
-	char *args_array[64];
-	 int status;
-	   const char *next_arg;
+    char *args_array[64];
+    int status;
+    const char *next_arg;
     int i = 0;
 
     pid_t pid = fork();
     if (pid < 0)
-	{
-
+    {
         perror("fork");
         return -1;
-    } else if (pid == 0) {
-
+    } else if (pid == 0)
+    {
         va_list args;
         va_start(args, arg);
 
@@ -26,12 +26,12 @@ int get_execlp(const char *file, const char *arg, ...)
         args_array[i] = NULL;
 
         execvp(file, args_array);
-
-		fprintf(stderr, "./shell: No such file or directory\n");
+        fprintf(stderr, "%s: No such file or directory\n", file);
+        exit(EXIT_FAILURE);
     }
-	else
-	{
+    else
+    {
         waitpid(pid, &status, 0);
     }
-	return (0);
+    return 0;
 }
