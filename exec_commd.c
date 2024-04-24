@@ -10,39 +10,39 @@
  */
 void execute_command(char *command, char *env[])
 {
-	pid_t pid;
-	int status;
-	char *args[MAX_ARGS];
+        pid_t pid;
+        int status;
+        char *args[MAX_ARGS];
 
-	int i = 0;
+        int i = 0;
 
-	char *token = strtok(command, " ");
+        char *token = strtok(command, " ");
 
-	while (token != NULL && i < MAX_ARGS - 1)
-	{
-		args[i++] = token;
-		token = strtok(NULL, " ");
-	}
+        while (token != NULL && i < MAX_ARGS - 1)
+        {
+                args[i++] = token;
+                token = strtok(NULL, " ");
+        }
 
-	args[i] = NULL;
+        args[i] = NULL;
 
-	pid = fork();
+        pid = fork();
 
-	if (pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		if (get_execvp(args[0], args, env) == -1)
-		{
-			fprintf(stderr, "./shell: No such file or directory\n");
-			exit(EXIT_FAILURE);
-		}
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-	}
+        if (pid == -1)
+        {
+                perror("fork");
+                exit(EXIT_FAILURE);
+        }
+        else if (pid == 0)
+        {
+                if (get_execvp(args[0], args, env) == -1)
+                {
+                        fprintf(stderr, "./shell: No such file or directory\n");
+                        exit(EXIT_FAILURE);
+                }
+        }
+        else
+        {
+                waitpid(pid, &status, 0);
+        }
 }

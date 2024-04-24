@@ -13,42 +13,41 @@
  *
  * Return: 0 on success, -1 on failure.
  */
-
 int get_execlp(const char *file, const char *arg, char *env[], ...)
 {
-	char *args_array[64];
-	int status;
-	const char *next_arg;
-	va_list args;
+        char *args_array[64];
+        int status;
+        const char *next_arg;
+        va_list args;
 
-	int i = 0;
+        int i = 0;
 
-	pid_t pid = fork();
+        pid_t pid = fork();
 
-	if (pid < 0)
-	{
-		perror("fork");
-		return (-1);
-	}
-	else if (pid == 0)
-	{
-		va_start(args, env);
-		args_array[i++] = (char *)arg;
+        if (pid < 0)
+        {
+                perror("fork");
+                return (-1);
+        }
+        else if (pid == 0)
+        {
+                va_start(args, env);
+                args_array[i++] = (char *)arg;
 
-		while ((next_arg = va_arg(args, const char *)) != NULL && i < 63)
-		{
-			args_array[i++] = (char *)next_arg;
-		}
+                while ((next_arg = va_arg(args, const char *)) != NULL && i < 63)
+                {
+                        args_array[i++] = (char *)next_arg;
+                }
 
-		va_end(args);
-		args_array[i] = NULL;
-		get_execvp(file, args_array, env);
-		fprintf(stderr, "%s: No such file or directory\n", file);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-	}
-	return (0);
+                va_end(args);
+                args_array[i] = NULL;
+                get_execvp(file, args_array, env);
+                fprintf(stderr, "%s: No such file or directory\n", file);
+                exit(EXIT_FAILURE);
+        }
+        else
+        {
+                waitpid(pid, &status, 0);
+        }
+        return (0);
 }

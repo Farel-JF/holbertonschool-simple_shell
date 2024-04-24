@@ -30,5 +30,6 @@ char *get_recup(char *fname, int numcount, char *cmd, const char *status)
 	strcat(result, " ");
 	strcat(result, cmd);
 
+	free(result);
 	return (result);
 }
