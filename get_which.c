@@ -14,27 +14,25 @@
 char *get_which(char *command, char **env)
 {
 	struct stat st;
-	char *copy_path = strdup(_getenv("PATH", env));
-	char *path_token = strtok(copy_path, ":");
-	char filepath[MAX_COMMAND_WITH_PATH_LENGTH];
-	char *command_path = NULL;
+	char *path = _getenv("PATH", env);
+	char *path_copy = strdup(path);
+	char *token = strtok(path_copy, ":");
 
-	if (path_token != NULL)
+	if (token != NULL)
 	{
-		do {
-			snprintf(filepath, sizeof(filepath), "%s/%s", path_token, command);
+		char filepath[MAX_PATH_LENGTH];
+		snprintf(filepath, sizeof(filepath), "%s/%s", token, command);
 
-			if (stat(filepath, &st) == 0)
-			{
-				command_path = strdup(filepath);
-				break;
-			}
-			path_token = strtok(NULL, ":");
-
-		} while (path_token != NULL);
+		if (stat(filepath, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
+		{
+			char *command_path = strdup(filepath);
+			free(path_copy);
+			return (command_path);
+		}
+		token = strtok(NULL, ":");
 	}
-	free(copy_path);
-	return (command_path);
+	free(path_copy);
+	return (NULL);
 }
 
 /**

@@ -33,20 +33,22 @@ int get_execvp(const char *file, char *const argv[])
     token = strtok(path_copy, ":");
     while (token != NULL)
     {
-        size_t token_len = strlen(token);
-        size_t file_len = strlen(file);
-        char *full_path = malloc(token_len + file_len + 2);
-        if (full_path == NULL)
-        {
-            fprintf(stderr, "Erreur lors de l'allocation mémoire.\n");
-            free(path_copy);
-            return (-1);
-        }
-        sprintf(full_path, "%s/%s", token, file);
-        execv(full_path, argv);
-        free(full_path);
-        token = strtok(NULL, ":");
+	    size_t token_len = strlen(token);
+	    size_t file_len = strlen(file);
+	    char *full_path = malloc(token_len + file_len + 2);
+	    if (full_path == NULL)
+	    {
+		    fprintf(stderr, "Erreur lors de l'allocation mémoire.\n");
+		    free(path_copy);
+		    return (-1);
+	    }
+
+	    sprintf(full_path, "%s/%s", token, file);
+	    execv(full_path, argv);
+	    free(full_path);
+	    token = strtok(NULL, ":");
     }
+
     free(path_copy);
 
     fprintf(stderr, "Impossible de trouver l'exécutable '%s' dans le PATH.\n", file);

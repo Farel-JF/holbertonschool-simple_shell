@@ -41,7 +41,7 @@ int get_execlp(const char *file, const char *arg, ...)
 		}
 
 		args_array[i] = NULL;
-		get_execvp(file, args_array);
+		execve(file, args_array, environ);
 		fprintf(stderr, "%s: No such file or directory\n", file);
 		exit(EXIT_FAILURE);
 	}
