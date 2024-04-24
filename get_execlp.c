@@ -14,7 +14,7 @@
  * Return: 0 on success, -1 on failure.
  */
 
-int get_execlp(const char *file, const char *arg, ...)
+int get_execlp(const char *file, const char *arg, char *env[], ...)
 {
 	char *args_array[64];
 	int status;
@@ -32,7 +32,7 @@ int get_execlp(const char *file, const char *arg, ...)
 	}
 	else if (pid == 0)
 	{
-		va_start(args, arg);
+		va_start(args, env);
 		args_array[i++] = (char *)arg;
 
 		while ((next_arg = va_arg(args, const char *)) != NULL && i < 63)
@@ -40,8 +40,9 @@ int get_execlp(const char *file, const char *arg, ...)
 			args_array[i++] = (char *)next_arg;
 		}
 
+		va_end(args);
 		args_array[i] = NULL;
-		execve(file, args_array, environ);
+		get_execvp(file, args_array, env);
 		fprintf(stderr, "%s: No such file or directory\n", file);
 		exit(EXIT_FAILURE);
 	}

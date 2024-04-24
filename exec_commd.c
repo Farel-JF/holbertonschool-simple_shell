@@ -1,5 +1,5 @@
 #include "shell.h"
-extern char **environ;
+
 /**
  * execute_command - Execute a given command.
  * @command: The command to be executed.
@@ -8,7 +8,7 @@ extern char **environ;
  * and executes it using execvp. It handles forking a new process and waiting
  * for its completion.
  */
-void execute_command(char *command)
+void execute_command(char *command, char *env[])
 {
 	pid_t pid;
 	int status;
@@ -35,7 +35,7 @@ void execute_command(char *command)
 	}
 	else if (pid == 0)
 	{
-		if (get_execvp(args[0], args) == -1)
+		if (get_execvp(args[0], args, env) == -1)
 		{
 			fprintf(stderr, "./shell: No such file or directory\n");
 			exit(EXIT_FAILURE);
