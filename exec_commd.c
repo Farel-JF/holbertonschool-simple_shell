@@ -35,7 +35,7 @@ void execute_command(char *command)
 	}
 	else if (pid == 0)
 	{
-		if (execvp(args[0], args) == -1)
+		if (get_execvp(args[0], args) == -1)
 		{
 			fprintf(stderr, "./shell: No such file or directory\n");
 			exit(EXIT_FAILURE);

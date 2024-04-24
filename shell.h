@@ -31,5 +31,6 @@ int get_execlp(const char *file, const char *arg, ...);
 int handle_eof(void);
 void run_ls_l(void);
 char *get_recup(char *fname, int numcount, char *cmd, const char *status);
+int get_execvp(const char *file, char *const argv[]);
 
 #endif
