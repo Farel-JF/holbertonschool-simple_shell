@@ -32,4 +32,3 @@ void run_ls_l(void)
 		waitpid(pid, &status, 0);
 	}
 }
-

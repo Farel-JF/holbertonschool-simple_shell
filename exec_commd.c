@@ -1,5 +1,5 @@
 #include "shell.h"
-
+extern char **environ;
 /**
  * execute_command - Execute a given command.
  * @command: The command to be executed.
@@ -35,7 +35,7 @@ void execute_command(char *command)
 	}
 	else if (pid == 0)
 	{
-		if (execve(args[0], args, environ) == -1)
+		if (get_execvp(args[0], args) == -1)
 		{
 			fprintf(stderr, "./shell: No such file or directory\n");
 			exit(EXIT_FAILURE);

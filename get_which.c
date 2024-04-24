@@ -11,28 +11,30 @@
  *
  * Return: A pointer to the full path of the command, or NULL if not found.
  */
-char *get_which(char *command, char **env)
+char *get_which(char *command, char **envp)
 {
-	struct stat st;
-	char *path = _getenv("PATH", env);
-	char *path_copy = strdup(path);
-	char *token = strtok(path_copy, ":");
+    struct stat st;
+    char *path = _getenv("PATH", envp);
+    char *path_copy = strdup(path);
+    char *token = strtok(path_copy, ":");
 
-	if (token != NULL)
-	{
-		char filepath[MAX_PATH_LENGTH];
-		snprintf(filepath, sizeof(filepath), "%s/%s", token, command);
+    while (token != NULL)
+    {
+        char filepath[MAX_PATH_LENGTH];
+        snprintf(filepath, sizeof(filepath), "%s/%s", token, command);
 
-		if (stat(filepath, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
-		{
-			char *command_path = strdup(filepath);
-			free(path_copy);
-			return (command_path);
-		}
-		token = strtok(NULL, ":");
-	}
-	free(path_copy);
-	return (NULL);
+        if (stat(filepath, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
+        {
+            char *command_path = strdup(filepath);
+            free(path_copy);
+            return command_path;
+        }
+
+        token = strtok(NULL, ":");
+    }
+
+    free(path_copy);
+    return NULL;
 }
 
 /**
