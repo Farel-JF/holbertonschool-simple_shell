@@ -25,7 +25,7 @@ typedef int pid_t;
 
 void execute_command(char *command);
 char *find_command_in_path(const char *command, const char *path);
-void exit_shell(const char *command);
+void get_exit(const char *command);
 int manage_command(char *command);
 void manage_string(const char *input);
 int manage_env(void);
