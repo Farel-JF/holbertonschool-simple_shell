@@ -1,26 +1,26 @@
 #include "shell.h"
 
 /**
- * _strcmp - performs lexicogarphic comparison of two strangs.
+ * _strncmp - performs lexicogarphic comparison of two strangs.
  * @s1: the first strang
  * @s2: the second strang
- *
+ * @n : The maximum number of characters to compare.
  * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
  */
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-  while (*s1 && *s2 && n > 0)
-  {
-    if (*s1 != *s2)
-      return (*s1 - *s2);
-    s1++;
-    s2++;
-    n--;
-  }
-  if (n == 0 || (*s1 == '\0' && *s2 == '\0'))
-    return 0;
-  else
-    return (*s1 < *s2 ? -1 : 1);
+	while (*s1 && *s2 && n > 0)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
+		n--;
+	}
+	if (n == 0 || (*s1 == '\0' && *s2 == '\0'))
+		return (0);
+	else
+		return (*s1 < *s2 ? -1 : 1);
 }
 
 /**
@@ -31,14 +31,14 @@ int _strncmp(const char *s1, const char *s2, size_t n)
  */
 int _strlen(const char *s)
 {
-  int i = 0;
+	int i = 0;
 
-  if (!s)
-    return (0);
+	if (!s)
+		return (0);
 
-  while (*s++)
-    i++;
-  return (i);
+	while (*s++)
+		i++;
+	return (i);
 }
 
 /**
@@ -50,17 +50,17 @@ int _strlen(const char *s)
  */
 char *_strcpy(char *dest, char *src)
 {
-  int i = 0;
+	int i = 0;
 
-  if (dest == src || src == 0)
-    return (dest);
-  while (src[i])
-  {
-    dest[i] = src[i];
-    i++;
-  }
-  dest[i] = 0;
-  return (dest);
+	if (dest == src || src == 0)
+		return (dest);
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = 0;
+	return (dest);
 }
 
 /**
@@ -71,19 +71,19 @@ char *_strcpy(char *dest, char *src)
  */
 char *_strdup(const char *str)
 {
-  int length = 0;
-  char *ret;
+	int length = 0;
+	char *ret;
 
-  if (str == NULL)
-    return (NULL);
-  while (*str++)
-    length++;
-  ret = malloc(sizeof(char) * (length + 1));
-  if (!ret)
-    return (NULL);
-  for (length++; length--;)
-    ret[length] = *--str;
-  return (ret);
+	if (str == NULL)
+		return (NULL);
+	while (*str++)
+		length++;
+	ret = malloc(sizeof(char) * (length + 1));
+	if (!ret)
+		return (NULL);
+	for (length++; length--;)
+		ret[length] = *--str;
+	return (ret);
 }
 
 /**
@@ -95,12 +95,12 @@ char *_strdup(const char *str)
  */
 char *_strcat(char *dest, char *src)
 {
-  char *ret = dest;
+	char *ret = dest;
 
-  while (*dest)
-    dest++;
-  while (*src)
-    *dest++ = *src++;
-  *dest = *src;
-  return (ret);
+	while (*dest)
+		dest++;
+	while (*src)
+		*dest++ = *src++;
+	*dest = *src;
+	return (ret);
 }

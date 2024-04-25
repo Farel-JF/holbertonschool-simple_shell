@@ -10,26 +10,19 @@
  */
 int _ferror(FILE *stream)
 {
-  /*Check if the stream is NULL*/
-  if (stream == NULL)
-  {
-    /* If the stream is NULL, return an error*/
-    errno = EINVAL; /*Invalid argument*/
-    return (1);
-  }
-  /* Check if the stream's file descriptor is invalid*/
-  if (fileno(stream) == -1)
-  {
-    /* If the file descriptor is invalid, return an error*/
-    errno = EBADF; /* Bad file descriptor*/
-    return (1);
-  }
-  /*/ Check if errno is set*/
-  if (errno != 0)
-  {
-    /*/If errno is set, return an error*/
-    return (1);
-  }
-  /* If none of the above conditions are met, return 0 (no error)*/
-  return (0);
+	if (stream == NULL)
+	{
+		errno = EINVAL;
+		return (1);
+	}
+	if (fileno(stream) == -1)
+	{
+		errno = EBADF;
+		return (1);
+	}
+	if (errno != 0)
+	{
+		return (1);
+	}
+	return (0);
 }

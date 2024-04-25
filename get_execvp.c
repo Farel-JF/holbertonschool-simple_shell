@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * get_execvp - Search for an executable file in PATH and execute it
+ * _execvp - Search for an executable file in PATH and execute it
  * @file: The name of the file to execute
  * @argv: Array of pointers to arguments for the executable
  * @env: The environment
@@ -32,7 +32,6 @@ int _execvp(const char *file, char *const argv[], char *env[])
 		full_path = malloc(token_len + file_len + 2);
 		if (full_path == NULL)
 		{
-			fprintf(stderr, "Memory allocation error.\n");
 			free(path_copy);
 			return (-1);
 		}

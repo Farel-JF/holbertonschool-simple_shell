@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * get_execlp - Execute a file with variable arguments.
+ * _execlp - Execute a file with variable arguments.
  * @file: The path of the file to execute.
  * @arg: The first argument to the file.
  * @...: Optional additional arguments, terminated by NULL.
