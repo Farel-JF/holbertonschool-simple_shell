@@ -10,7 +10,7 @@
 
 void get_exit(char *command)
 {
-	if (strcmp(command, "exit") == 0)
+	if (_strncmp(command, "exit", _strlen(command)) == 0)
 	{
 		exit(EXIT_SUCCESS);
 	}

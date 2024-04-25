@@ -12,6 +12,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 extern char **environ;
 
@@ -31,8 +32,15 @@ int get_execlp(const char *file, const char *arg, char *env[], ...);
 int handle_eof(void);
 void run_ls_l(void);
 char *get_recup(char *fname, int numcount, char *cmd, const char *status);
-int get_execvp(const char *file, char *const argv[], char *env[]);
+int get_execvp(const char *file, char *const av[], char *env[]);
 int check_env(const char *variable);
-pid_t get_fork(void);
+int _strlen(const char *s);
+int _strncmp(const char *s1, const char *s2, size_t n);
+char *_strcpy(char *dest, char *src);
+char *_strdup(const char *str);
+char *_strcat(char *dest, char *src);
+char *_fget(char *str, int num, FILE *stream);
+int _ferror(FILE *stream);
+int _snprintf(char *str, size_t size, const char *format, ...);
 
 #endif

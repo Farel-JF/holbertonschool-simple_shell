@@ -4,12 +4,7 @@
  * main - Entry point of the shell program.
  * @ac: The number of arguments passed to the program.
  * @av: An array containing the arguments passed to the program.
- * @env: The environment variables.
- *
- * This function serves as the entry point of the shell program. It handles
- * the interactive mode where it displays a prompt, reads user input, and
- * executes commands entered by the user. It also handles error checking
- * and exiting the shell when requested by the user.
+ * @env: The environment variables..
  *
  * Return: The exit status of the shell program.
  */
@@ -26,16 +21,17 @@ int main(int ac, char *av[], char *env[])
 		if (isatty(STDIN_FILENO))
 			printf("cisfun$ ");
 
-		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
+		if (_fget(input, MAX_INPUT_LENGTH, stdin) == NULL)
 		{
-			if (feof(stdin))
+			if (_ferror(stdin))
 			{
-				break;
+				perror("Erreur lors de la lecture de l'entrée");
+				return (EXIT_FAILURE);
 			}
 			else
 			{
-				fprintf(stderr, "Erreur lors de la lecture de l'entrée.\n");
-				return (EXIT_FAILURE);
+				/* Traitement de l'EOF ici si nécessaire*/
+				break;
 			}
 		}
 		input[strcspn(input, "\n")] = '\0';

@@ -13,12 +13,6 @@ int get_execvp(const char *file, char *const argv[], char *env[])
 	size_t path_len;
 	char *path, *path_copy, *token, *full_path;
 
-	if (realpath(file, NULL) != NULL)
-	{
-		execve(file, argv, env);
-		perror("execve");
-		return (-1);
-	}
 	path = _getenv("PATH", env);
 	if (path == NULL)
 		return (-1);
@@ -36,16 +30,23 @@ int get_execvp(const char *file, char *const argv[], char *env[])
 		full_path = malloc(token_len + file_len + 2);
 		if (full_path == NULL)
 		{
-			fprintf(stderr, "Erreur lors de l'allocation mémoire.\n");
+			fprintf(stderr, "Memory allocation error.\n");
 			free(path_copy);
 			return (-1);
 		}
 		sprintf(full_path, "%s/%s", token, file);
-		execve(full_path, argv, env);
+		if (access(full_path, X_OK) == 0)
+		{
+			execve(full_path, argv, env);
+			perror("execve");
+			free(full_path);
+			free(path_copy);
+			exit(EXIT_FAILURE);
+		}
 		free(full_path);
 		token = strtok(NULL, ":");
 	}
 	free(path_copy);
 	fprintf(stderr, "./shell: '%s' No such file or directory \n", file);
-	exit(127);
+	exit(EXIT_FAILURE);
 }

@@ -16,16 +16,18 @@ char *get_which(char *command, char **envp)
   char *path = _getenv("PATH", envp);
   char *path_copy = strdup(path);
   char *token = strtok(path_copy, ":");
+  char *command_path;
+  char filepath[MAX_PATH_LENGTH];
 
   while (token != NULL)
   {
-    char filepath[MAX_PATH_LENGTH];
-    snprintf(filepath, sizeof(filepath), "%s/%s", token, command);
+
+    _snprintf(filepath, sizeof(filepath), "%s/%s", token, command);
 
     /*Utilisation de access au lieu de stat*/
     if (access(filepath, X_OK) == 0)
     {
-      char *command_path = strdup(filepath);
+      command_path = strdup(filepath);
       free(path_copy);
       return command_path;
     }
@@ -34,7 +36,7 @@ char *get_which(char *command, char **envp)
   }
 
   free(path_copy);
-  return NULL;
+  return (NULL);
 }
 
 /**
@@ -53,10 +55,10 @@ char *_getenv(const char *name, char **env)
 
   for (i = 0; env[i]; i++)
   {
-    if (strncmp(env[i], name, strlen(name)) == 0 &&
-        env[i][strlen(name)] == '=')
+    if (_strncmp(env[i], name, _strlen(name)) == 0 &&
+        env[i][_strlen(name)] == '=')
     {
-      return (&env[i][strlen(name) + 1]);
+      return (&env[i][_strlen(name) + 1]);
       check_env(name);
     }
   }
