@@ -8,9 +8,11 @@
  * Return: Upon success, execvp() does not return. On failure, -1 is returned,
  * and errno is set appropriately.
  */
-int get_execvp(const char *file, char *const argv[], char *env[])
+int _execvp(const char *file, char *const argv[], char *env[])
 {
 	size_t path_len;
+	size_t token_len;
+	size_t file_len;
 	char *path, *path_copy, *token, *full_path;
 
 	path = _getenv("PATH", env);
@@ -24,8 +26,8 @@ int get_execvp(const char *file, char *const argv[], char *env[])
 	token = strtok(path_copy, ":");
 	while (token != NULL)
 	{
-		size_t token_len = strlen(token);
-		size_t file_len = strlen(file);
+		token_len = strlen(token);
+		file_len = strlen(file);
 
 		full_path = malloc(token_len + file_len + 2);
 		if (full_path == NULL)

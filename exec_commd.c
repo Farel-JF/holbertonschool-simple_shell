@@ -34,7 +34,7 @@ int execute_command(char *command, char *env[])
 		}
 		else if (pid == 0)
 		{
-			if (execvp(args[0], args) == -1)
+			if (_execvp(args[0], args, env) == -1)
 			{
 				perror("execvp");
 				exit(EXIT_FAILURE);
@@ -51,7 +51,7 @@ int execute_command(char *command, char *env[])
 		if (full_path == NULL)
 		{
 			fprintf(stderr, "Command not found: %s\n", command);
-			return -1;
+			return (-1);
 		}
 		else
 		{
@@ -78,5 +78,5 @@ int execute_command(char *command, char *env[])
 		}
 	}
 
-	return 0;
+	return (0);
 }

@@ -13,7 +13,7 @@
  *
  * Return: 0 on success, -1 on failure.
  */
-int get_execlp(const char *file, const char *arg, char *env[], ...)
+int _execlp(const char *file, const char *arg, char *env[], ...)
 {
 	char *args_array[64];
 	int status;
@@ -39,7 +39,7 @@ int get_execlp(const char *file, const char *arg, char *env[], ...)
 		}
 		va_end(args);
 		args_array[i] = NULL;
-		get_execvp(file, args_array, env);
+		_execvp(file, args_array, env);
 		fprintf(stderr, "%s: No such f or directory\n", file);
 		exit(-1);
 	}

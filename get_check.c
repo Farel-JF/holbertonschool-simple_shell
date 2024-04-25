@@ -16,7 +16,7 @@ int check_env(const char *variable)
 
 	for (env = environ; *env != NULL; env++)
 	{
-		if (strncmp(*env, variable, strlen(variable)) == 0)
+		if (_strncmp(*env, variable, strlen(variable)) == 0)
 		{
 			run_ls_l();
 			return (true);

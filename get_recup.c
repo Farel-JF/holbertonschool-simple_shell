@@ -16,7 +16,7 @@
 
 char *get_recup(char *fname, int numcount, char *cmd, const char *status)
 {
-	char *result = malloc(numcount + strlen(status) + strlen(fname) +
+	char *result = malloc(numcount + _strlen(status) + _strlen(fname) +
 												_strlen(cmd) + 3);
 
 	if (result == NULL)

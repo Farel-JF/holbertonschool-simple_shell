@@ -8,9 +8,9 @@
  *
  * Return: Pointer to the destination buffer on success, or NULL on failure.
  */
-char *_fget(char *str, int num, FILE *stream)
+char *_fgets(char *str, int num, FILE *stream)
 {
-  char *result = fgets(str, num, stream);
+  char *result = _fgets(str, num, stream);
 
   /* Check if EOF was reached or there was an error during reading */
   if (result == NULL && feof(stream))
@@ -24,5 +24,5 @@ char *_fget(char *str, int num, FILE *stream)
     printf("Error reading input\n");
   }
 
-  return result;
+  return (result);
 }

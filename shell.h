@@ -28,19 +28,20 @@ int execute_command(char *command, char *env[]);
 void get_exit(char *command);
 char *_getenv(const char *name, char **env);
 char *get_which(char *command, char **env);
-int get_execlp(const char *file, const char *arg, char *env[], ...);
+int _execlp(const char *file, const char *arg, char *env[], ...);
 int handle_eof(void);
 void run_ls_l(void);
 char *get_recup(char *fname, int numcount, char *cmd, const char *status);
-int get_execvp(const char *file, char *const av[], char *env[]);
+int _execvp(const char *file, char *const av[], char *env[]);
 int check_env(const char *variable);
 int _strlen(const char *s);
 int _strncmp(const char *s1, const char *s2, size_t n);
 char *_strcpy(char *dest, char *src);
 char *_strdup(const char *str);
 char *_strcat(char *dest, char *src);
-char *_fget(char *str, int num, FILE *stream);
+char *_fgets(char *str, int num, FILE *stream);
 int _ferror(FILE *stream);
 int _snprintf(char *str, size_t size, const char *format, ...);
+size_t _strcspn(const char *str, const char *reject);
 
 #endif
