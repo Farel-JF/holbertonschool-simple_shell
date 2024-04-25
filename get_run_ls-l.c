@@ -14,7 +14,7 @@ void run_ls_l(void)
 	char *const envp[] = {NULL};
 	int status;
 
-	pid_t pid = fork();
+	pid_t pid = get_fork();
 
 	if (pid == -1)
 	{

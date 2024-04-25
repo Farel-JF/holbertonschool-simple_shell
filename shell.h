@@ -23,7 +23,7 @@ extern char **environ;
 
 typedef int pid_t;
 
-int execute_command(char *command, char *env[]) ;
+int execute_command(char *command, char *env[]);
 void get_exit(char *command);
 char *_getenv(const char *name, char **env);
 char *get_which(char *command, char **env);
@@ -33,5 +33,6 @@ void run_ls_l(void);
 char *get_recup(char *fname, int numcount, char *cmd, const char *status);
 int get_execvp(const char *file, char *const argv[], char *env[]);
 int check_env(const char *variable);
+pid_t get_fork(void);
 
 #endif

@@ -9,11 +9,11 @@
  * Return: 0 if EOF is not encountered, or if EOF handling is successful.
  */
 
-int handle_eof(void)
+int handle_eof()
 {
 	if (feof(stdin))
 	{
 		exit(EXIT_SUCCESS);
 	}
-	return (0);
+	return 0;
 }
