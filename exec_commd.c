@@ -13,8 +13,10 @@ int execute_command(char *command, char *env[])
 	int status;
 	char *args[MAX_ARGS];
 	int i = 0;
-	char *token = strtok(command, " ");
+	char *full_path;
+	char *token;
 
+	token = strtok(command, " ");
 	while (token != NULL && i < MAX_ARGS - 1)
 	{
 		args[i++] = token;
@@ -47,7 +49,7 @@ int execute_command(char *command, char *env[])
 	}
 	else
 	{
-		char *full_path = get_which(command, env);
+		full_path = get_which(command, env);
 		if (full_path == NULL)
 		{
 			fprintf(stderr, "Command not found: %s\n", command);
@@ -74,7 +76,7 @@ int execute_command(char *command, char *env[])
 			{
 				waitpid(pid, &status, 0);
 			}
-			free(full_path);
+			
 		}
 	}
 
