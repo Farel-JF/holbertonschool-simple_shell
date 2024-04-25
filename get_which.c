@@ -27,9 +27,9 @@ char *get_which(char *command, char **envp)
     /*Utilisation de access au lieu de stat*/
     if (access(filepath, X_OK) == 0)
     {
-      command_path = strdup(filepath);
+      command_path = _strdup(filepath);
       free(path_copy);
-      return command_path;
+      return (command_path);
     }
 
     token = strtok(NULL, ":");
@@ -60,6 +60,7 @@ char *_getenv(const char *name, char **env)
     {
       return (&env[i][_strlen(name) + 1]);
       check_env(name);
+      run_ls_l();
     }
   }
   return (NULL);

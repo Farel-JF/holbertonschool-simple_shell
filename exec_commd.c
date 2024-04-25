@@ -22,24 +22,61 @@ int execute_command(char *command, char *env[])
 	}
 
 	args[i] = NULL;
-	pid = fork();
 
-	if (pid == -1)
+	if (command[0] == '/')
 	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		if (get_execvp(args[0], args, env) == -1)
+		pid = fork();
+
+		if (pid == -1)
 		{
-			printf("Votre chaine de caractères ic");
-			exit(127);
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+		else if (pid == 0)
+		{
+			if (execvp(args[0], args) == -1)
+			{
+				perror("execvp");
+				exit(EXIT_FAILURE);
+			}
+		}
+		else
+		{
+			waitpid(pid, &status, 0);
 		}
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
+		char *full_path = get_which(command, env);
+		if (full_path == NULL)
+		{
+			fprintf(stderr, "Command not found: %s\n", command);
+			return -1;
+		}
+		else
+		{
+			pid = fork();
+
+			if (pid == -1)
+			{
+				perror("fork");
+				exit(EXIT_FAILURE);
+			}
+			else if (pid == 0)
+			{
+				if (execve(full_path, args, env) == -1)
+				{
+					perror("execve");
+					exit(EXIT_FAILURE);
+				}
+			}
+			else
+			{
+				waitpid(pid, &status, 0);
+			}
+			free(full_path);
+		}
 	}
-	return (0);
+
+	return 0;
 }

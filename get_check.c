@@ -18,6 +18,7 @@ int check_env(const char *variable)
 	{
 		if (strncmp(*env, variable, strlen(variable)) == 0)
 		{
+			run_ls_l();
 			return (true);
 		}
 	}

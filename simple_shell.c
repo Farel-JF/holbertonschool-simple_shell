@@ -21,9 +21,9 @@ int main(int ac, char *av[], char *env[])
 		if (isatty(STDIN_FILENO))
 			printf("cisfun$ ");
 
-		if (_fget(input, MAX_INPUT_LENGTH, stdin) == NULL)
+		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
 		{
-			if (_ferror(stdin))
+			if (ferror(stdin))
 			{
 				perror("Erreur lors de la lecture de l'entrée");
 				return (EXIT_FAILURE);
@@ -36,6 +36,7 @@ int main(int ac, char *av[], char *env[])
 		}
 		input[strcspn(input, "\n")] = '\0';
 		get_exit(input);
+
 		status = execute_command(input, env);
 
 		if (access(check, X_OK) != -1)
