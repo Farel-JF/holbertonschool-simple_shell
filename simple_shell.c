@@ -16,47 +16,42 @@
 
 int main(int ac, char *av[], char *env[])
 {
-    int nb_cmd = 1, status = 0;
-    char input[MAX_INPUT_LENGTH];
-   char check[] = "/bin/ls";
+	int nb_cmd = 1, status = 0;
+	char input[MAX_INPUT_LENGTH];
+	char check[] = "/bin/ls";
+	(void)av;
 
-    (void)av;
+	while (1)
+	{
+		if (isatty(STDIN_FILENO))
+			printf("cisfun$ ");
 
-    /* Mode interactif */
-    while (1)
-    {
-        if (isatty(STDIN_FILENO))
-            /* Afficher le prompt et lire l'entrée utilisateur */
-            printf("cisfun$ ");
+		if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
+		{
+			if (feof(stdin))
+			{
+				break;
+			}
+			else
+			{
+				fprintf(stderr, "Erreur lors de la lecture de l'entrée.\n");
+				return (EXIT_FAILURE);
+			}
+		}
+		input[strcspn(input, "\n")] = '\0';
+		get_exit(input);
+		status = execute_command(input, env);
 
-        if (fgets(input, MAX_INPUT_LENGTH, stdin) == NULL)
-        {
-            if (feof(stdin))
-            {
-                break;
-            }
-            else
-            {
-                fprintf(stderr, "Erreur lors de la lecture de l'entrée.\n");
-                return (EXIT_FAILURE);
-            }
-        }
-
-        /* Enlever le caractère de nouvelle ligne en fin de ligne */
-        input[strcspn(input, "\n")] = '\0';
-        get_exit(input);
-        /* Exécuter la commande entrée par l'utilisateur */
-        execute_command(input, env);
-
-       if (access(check, X_OK) != -1)
-       {
-            check_env(check);
-        } else {
-            printf("%s does not exist!\n", check);
-        }
-        nb_cmd++;
-    }
-    (void)ac;
-
-    return (status);
+		if (access(check, X_OK) != -1)
+		{
+			check_env(check);
+		}
+		else
+		{
+			printf("%s does not exist!\n", check);
+		}
+		nb_cmd++;
+	}
+	(void)ac;
+	return (status);
 }

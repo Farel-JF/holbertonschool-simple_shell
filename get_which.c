@@ -3,7 +3,7 @@
 /**
  * get_which - Find the full path of a command in the PATH envr variable.
  * @command: The command to search for.
- * @env: The environment variables.
+ * @envp: The environment variables.
  *
  * This function searches for the full path of the given command by iterating
  * through the directories listed in the PATH environment variable. It returns
@@ -13,28 +13,29 @@
  */
 char *get_which(char *command, char **envp)
 {
-    struct stat st;
-    char *path = _getenv("PATH", envp);
-    char *path_copy = strdup(path);
-    char *token = strtok(path_copy, ":");
+	struct stat st;
+	char *path = _getenv("PATH", envp);
+	char *path_copy = strdup(path);
+	char *token = strtok(path_copy, ":");
 
-    while (token != NULL)
-    {
-        char filepath[MAX_PATH_LENGTH];
-        snprintf(filepath, sizeof(filepath), "%s/%s", token, command);
+	while (token != NULL)
+	{
+		char filepath[MAX_PATH_LENGTH];
 
-        if (stat(filepath, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
-        {
-            char *command_path = strdup(filepath);
-            free(path_copy);
-            return command_path;
-        }
+		snprintf(filepath, sizeof(filepath), "%s/%s", token, command);
+		if (stat(filepath, &st) == 0 && S_ISREG(st.st_mode) &&
+	(st.st_mode & S_IXUSR))
 
-        token = strtok(NULL, ":");
-    }
+		{
+			char *command_path = strdup(filepath);
 
-    free(path_copy);
-    return NULL;
+			free(path_copy);
+			return (command_path);
+		}
+		token = strtok(NULL, ":");
+	}
+	free(path_copy);
+	return (NULL);
 }
 
 /**
@@ -53,13 +54,12 @@ char *_getenv(const char *name, char **env)
 
 	for (i = 0; env[i]; i++)
 	{
-        
 		if (strncmp(env[i], name, strlen(name)) == 0 &&
 				env[i][strlen(name)] == '=')
-        {
-            return (&env[i][strlen(name) + 1]);
-            check_env(name);
-        }
-    }
-    return (NULL);
+		{
+			return (&env[i][strlen(name) + 1]);
+			check_env(name);
+		}
+	}
+	return (NULL);
 }

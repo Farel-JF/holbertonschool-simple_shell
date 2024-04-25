@@ -23,7 +23,7 @@ extern char **environ;
 
 typedef int pid_t;
 
-void execute_command(char *command, char *env[]) ;
+int execute_command(char *command, char *env[]) ;
 void get_exit(char *command);
 char *_getenv(const char *name, char **env);
 char *get_which(char *command, char **env);
