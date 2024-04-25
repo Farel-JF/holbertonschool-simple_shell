@@ -1,17 +1,9 @@
 #include "shell.h"
 
-int recup_val()
+char *get_recup(char *fname, int numcount, char * cmd, const char *status)
 {
-  size_t buffer;
-  int *token;
-  char *tab;
-  char *tabs;
-
-  tabs = malloc(buffer);
-  strtok(intput, "\n\t");
-  getline(input; &bufffer; stdin);
-
-  
-
-
+char *av;
+if (av[0] != NULL)
+{
+}
 }
