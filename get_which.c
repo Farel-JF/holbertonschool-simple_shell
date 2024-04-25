@@ -37,7 +37,6 @@ char *get_which(char *command, char **envp)
     token = strtok(NULL, ":");
   }
 
-  free(path_copy);
   return (NULL);
 }
 

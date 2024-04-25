@@ -76,7 +76,7 @@ int execute_command(char *command, char *env[])
 			{
 				waitpid(pid, &status, 0);
 			}
-			
+			free(full_path);
 		}
 	}
 
