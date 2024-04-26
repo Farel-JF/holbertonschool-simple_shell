@@ -10,30 +10,32 @@
  */
 char *_fgets(char *str, int num, FILE *stream)
 {
-	char *result;
+  char *result;
 
-	result = fgets(str, num, stream);
+  result = fgets(str, num, stream);
 
-	if (result == NULL && feof(stream))
-	{
-		/* EOF reached */
-		printf("EOF reached\n");
-	}
-	else if (result == NULL && _ferror(stream))
-	{
-		/* Error during reading */
-		printf("Error reading input\n");
-	}
-	/* Check if EOF was reached or there was an error during reading */
-	if (result == NULL && feof(stream))
-	{
-		/* EOF reached */
-		printf("EOF reached\n");
-	}
-	else if (result == NULL && ferror(stream))
-	{
-		/* Error during reading */
-		printf("Error reading input\n");
-	}
-	return (result);
+  if (result == NULL && feof(stream))
+  {
+    /* EOF reached */
+    printf("EOF reached\n");
+  }
+  else if (result == NULL && _ferror(stream))
+  {
+    /* Error during reading */
+    printf("Error reading input\n");
+  }
+
+  /* Check if EOF was reached or there was an error during reading */
+  if (result == NULL && feof(stream))
+  {
+    /* EOF reached */
+    printf("EOF reached\n");
+  }
+  else if (result == NULL && ferror(stream))
+  {
+    /* Error during reading */
+    printf("Error reading input\n");
+  }
+
+  return (result);
 }

@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "shell.h"
 
 /**
@@ -25,7 +26,8 @@ int execute_command(char *command, char *env[])
 
 	args[i] = NULL;
 
-	if (command[0] == '/')
+	/* Check if the command is already an executable file*/
+	if (access(args[0], X_OK) == 0)
 	{
 		pid = fork();
 
@@ -36,9 +38,9 @@ int execute_command(char *command, char *env[])
 		}
 		else if (pid == 0)
 		{
-			if (_execvp(args[0], args, env) == -1)
+			if (execve(args[0], args, env) == -1)
 			{
-				perror("execvp");
+				perror("execve");
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -47,12 +49,12 @@ int execute_command(char *command, char *env[])
 			waitpid(pid, &status, 0);
 		}
 	}
-	else
+	else /* If not executable, resolve the path*/
 	{
 		full_path = get_which(command, env);
 		if (full_path == NULL)
 		{
-			fprintf(stderr, "Command not found: %s\n", command);
+			fprintf(stderr, "%s: No such f or directory\n", command);
 			return (-1);
 		}
 		else

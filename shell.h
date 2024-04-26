@@ -32,7 +32,7 @@ int _execlp(const char *file, const char *arg, char *env[], ...);
 int handle_eof(void);
 void run_ls_l(void);
 char *get_recup(char *fname, int numcount, char *cmd, const char *status);
-int _execvp(const char *file, char *const av[], char *env[]);
+int _execvp(const char *file, char *as[], char *env[]);
 int check_env(const char *variable);
 int _strlen(const char *s);
 int _strncmp(const char *s1, const char *s2, size_t n);

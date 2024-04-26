@@ -1,14 +1,18 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 #include "shell.h"
 
 /**
- * _execvp - Search for an executable file in PATH and execute it
+ * get_execvp - Search for an executable file in PATH and execute it
  * @file: The name of the file to execute
  * @argv: Array of pointers to arguments for the executable
  * @env: The environment
  * Return: Upon success, execvp() does not return. On failure, -1 is returned,
  * and errno is set appropriately.
  */
-int _execvp(const char *file, char *const argv[], char *env[])
+int _execvp(const char *file, char *as[], char *env[])
 {
 	size_t path_len;
 	size_t token_len;
@@ -32,13 +36,14 @@ int _execvp(const char *file, char *const argv[], char *env[])
 		full_path = malloc(token_len + file_len + 2);
 		if (full_path == NULL)
 		{
+			fprintf(stderr, "Memory allocation error.\n");
 			free(path_copy);
 			return (-1);
 		}
 		sprintf(full_path, "%s/%s", token, file);
 		if (access(full_path, X_OK) == 0)
 		{
-			execve(full_path, argv, env);
+			execve(full_path, as, env);
 			perror("execve");
 			free(full_path);
 			free(path_copy);

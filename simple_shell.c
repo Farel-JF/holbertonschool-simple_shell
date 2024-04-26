@@ -25,7 +25,6 @@ int main(int ac, char *av[], char *env[])
 		{
 			if (_ferror(stdin))
 			{
-				perror("Erreur lors de la lecture de l'entrée");
 				return (EXIT_FAILURE);
 			}
 			else

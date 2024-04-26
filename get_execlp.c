@@ -18,10 +18,11 @@ int _execlp(const char *file, const char *arg, char *env[], ...)
 	char *args_array[64];
 	int status;
 	const char *next_arg;
+	pid_t pid;
 	va_list args;
 	int i = 0;
 
-	pid_t pid = fork();
+	pid = fork();
 
 	if (pid < 0)
 	{
